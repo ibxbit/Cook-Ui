@@ -11,8 +11,6 @@ import { ClickableCarouselDemo } from "./projects/demo";
 import PremiumButton from "../ui/heroButton";
 import HeroSection from "../feature/feature";
 
-const HomeHeader = HomeHeaderRaw as any;
-
 export default function OrganizationHero() {
   const [localTheme, setLocalTheme] = useState<"light" | "dark">("light");
   const heroRef = useRef<HTMLDivElement>(null);
@@ -63,9 +61,6 @@ export default function OrganizationHero() {
         interactive
       />
       <GridOverlay />
-      <div className="relative z-50 w-full">
-        <HomeHeader localTheme={localTheme} setLocalTheme={setLocalTheme} />
-      </div>
 
       <TimelineContent
         as="article"

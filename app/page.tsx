@@ -2,7 +2,7 @@ import HeroSection from "@/components/feature/feature";
 import StreamLineHero from "@/components/feature/feature";
 import { TextHoverEffect } from "@/components/footer/page";
 import OrganizationHero from "@/components/hero/hero";
-import PricingSection4 from "@/components/pricing/pricing-5";
+import PricingSection4 from "@/components/pricing/pricing";
 
 export default function Home() {
   return (

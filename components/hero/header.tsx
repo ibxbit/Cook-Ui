@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Github, Package, GalleryHorizontalEnd } from "lucide-react";
+import Link from "next/link";
 type Lenis = {
   scrollTo: (
     target: Element | number,
@@ -18,7 +19,7 @@ import { ThemeToggleButton } from "../mode-toggle";
 
 function Header() {
   const navItems = [
-    { id: "Templates", label: "Templates" },
+    { id: "Templates", label: "Templates", href: "/temp" },
     { id: "Components", label: "Components" },
     { id: "how-it-works", label: "How it Works" },
   ];
@@ -28,6 +29,7 @@ function Header() {
   const handleSmoothScroll = useCallback(
     (e: React.MouseEvent<HTMLElement>, href: string) => {
       e.preventDefault();
+      // ... (Smooth scroll logic remains the same for internal links)
       const target = document.querySelector(`#${href}`) as HTMLElement | null;
       if (target) {
         const lenis = getLenis();
@@ -73,7 +75,7 @@ function Header() {
 
   return (
     <header className="sticky z-50 top-0 px-4 pt-5">
-      <div className="z-50 w-full max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between backdrop-blur-xs bg-white/1 border border-white/10 rounded-2xl">
+      <div className="z-50 w-full max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between backdrop-blur-3xl bg-white/1 border border-white/10 rounded-2xl">
         {/* Left */}
         <div
           className="flex items-center space-x-1 z-10 cursor-pointer transition-all duration-200 hover:opacity-90"
@@ -87,16 +89,30 @@ function Header() {
 
         {/* Center */}
         <nav className="hidden lg:flex items-center space-x-8 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={(e) => handleSmoothScroll(e, item.id)}
-              className="text-gray-900 dark:text-white hover:text-gray-500 transition-all duration-300 ease-out text-sm font-medium bg-transparent border-none cursor-pointer relative group"
-            >
-              {item.label}
-              <span className="absolute inset-x-0 -bottom-1 h-px bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
-            </button>
-          ))}
+          {navItems.map((item) => {
+            if (item.href) {
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href}
+                  className="text-gray-900 dark:text-white hover:text-white transition-all duration-300 ease-out text-sm font-medium bg-transparent border-none cursor-pointer relative group"
+                >
+                  {item.label}
+                  <span className="absolute inset-x-0 -bottom-1 h-px bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
+                </Link>
+              );
+            }
+            return (
+              <button
+                key={item.id}
+                onClick={(e) => handleSmoothScroll(e, item.id)}
+                className="text-gray-900 dark:text-white hover:text-white transition-all duration-300 ease-out text-sm font-medium bg-transparent border-none cursor-pointer relative group"
+              >
+                {item.label}
+                <span className="absolute inset-x-0 -bottom-1 h-px bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
+              </button>
+            );
+          })}
         </nav>
 
         {/* Right */}

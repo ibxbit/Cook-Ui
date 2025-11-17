@@ -3,7 +3,7 @@
 import React from 'react';
 
 const RECT_CONFIG = {
-  horizontalTops: ['6.1%', '36%'],
+  horizontalTops: ['2.5%', '33%'],
   verticalLefts: ['15%', '88%'],
   strokeColor: 'currentColor',
   strokeWidth: 1,
@@ -65,7 +65,7 @@ const GridOverlay: React.FC = () => {
       {verticalLefts.map((left, i) => (
         <svg
           key={`v-line-${i}`}
-          className="absolute top-0 h-150"
+          className="absolute -top-12 h-145"
           style={{ left }}
           width="1"
           height="100%"
