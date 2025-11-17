@@ -2,7 +2,6 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { useState, useEffect, useRef, forwardRef } from "react";
 
-// Arrow icons
 const ArrowLeft = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -29,13 +28,11 @@ const ArrowRight = () => (
   </svg>
 );
 
-// Props
 interface ClickableCarouselProps {
   images: string[];
 }
 
-// Config
-const GAP = 32; // Gap between cards in pixels
+const GAP = 32; 
 
 const Card = forwardRef<HTMLDivElement, { src: string; isFirst: boolean }>(({ src, isFirst }, ref) => {
   const elementRef = isFirst ? ref : null;
@@ -61,8 +58,6 @@ const Card = forwardRef<HTMLDivElement, { src: string; isFirst: boolean }>(({ sr
           e.currentTarget.src = 'https://placehold.co/600x360/0a9396/ffffff?text=Image+Not+Found';
         }}
       />
-
-      {/* Optional dark overlay on hover */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
     </div>
   );
@@ -87,20 +82,15 @@ const ClickableCarousel: React.FC<ClickableCarouselProps> = ({ images }) => {
         setCardWidth(cardRef.current.offsetWidth);
       }
     };
-
-    // Initial measure
     updateWidth();
 
-    // Use ResizeObserver to detect width changes (e.g., orientation change, window resize)
     const observer = new ResizeObserver(updateWidth);
     if (cardRef.current) {
       observer.observe(cardRef.current);
     }
 
     return () => {
-      // Cleanup observer on unmount
       if (cardRef.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
         observer.unobserve(cardRef.current);
       }
     };
@@ -117,25 +107,19 @@ const ClickableCarousel: React.FC<ClickableCarouselProps> = ({ images }) => {
 
   return (
     <section className="w-full py-12 md:py-20 -mt-165 font-inter">
-      {/* Main Responsive Container: Full width with horizontal padding, limited max width, centered */}
       <div className="relative w-full max-w-9xl mx-auto px-4">
-
         <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-10 text-center">Get your Premium Templates</h2>
-
-        {/* Viewport – clips the overflowing card list */}
         <div className="overflow-hidden rounded-xl shadow-2xl">
           <motion.div
-            className="flex gap-8" // gap-8 = 32px 
+            className="flex gap-8"
             style={{ x: translateX }}
             animate={{ x: translateX }}
-            // Smoother spring transition
             transition={{ type: "spring", stiffness: 200, damping: 25 }}
           >
             {images.map((src, idx) => (
               <Card 
                 key={`${src}-${idx}`} 
                 src={src} 
-                // Only pass the ref to the first card to measure its dynamic width
                 ref={idx === 0 ? cardRef : null}
                 isFirst={idx === 0}
               />

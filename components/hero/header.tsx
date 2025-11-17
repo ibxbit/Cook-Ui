@@ -14,11 +14,12 @@ type Lenis = {
   ) => void;
 };
 import { useCallback } from "react";
+import { ThemeToggleButton } from "../mode-toggle";
 
 function Header() {
   const navItems = [
-    { id: "features", label: "Features" },
-    { id: "installation", label: "Installation" },
+    { id: "Templates", label: "Templates" },
+    { id: "Components", label: "Components" },
     { id: "how-it-works", label: "How it Works" },
   ];
 
@@ -90,7 +91,7 @@ function Header() {
             <button
               key={item.id}
               onClick={(e) => handleSmoothScroll(e, item.id)}
-              className="text-gray-900 hover:text-white transition-all duration-300 ease-out text-sm font-medium bg-transparent border-none cursor-pointer relative group"
+              className="text-gray-900 dark:text-white hover:text-gray-500 transition-all duration-300 ease-out text-sm font-medium bg-transparent border-none cursor-pointer relative group"
             >
               {item.label}
               <span className="absolute inset-x-0 -bottom-1 h-px bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
@@ -128,6 +129,10 @@ function Header() {
               <span className="sm:inline">PNPM Package</span>
             </a>
           </Button>
+          <div>
+            {/* Mode Toggle */}
+            <ThemeToggleButton />
+          </div>
         </div>
       </div>
     </header>
