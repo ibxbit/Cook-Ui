@@ -1,172 +1,101 @@
 import * as React from "react";
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef, forwardRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const ArrowLeft = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={3}
-    stroke="currentColor"
-    className="w-6 h-6"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-  </svg>
-);
-
-const ArrowRight = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    fill="none"
-    viewBox="0 0 24 24"
-    strokeWidth={3}
-    stroke="currentColor"
-    className="w-6 h-6"
-  >
-    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-  </svg>
-);
+const GAP = 32;
 
 interface ClickableCarouselProps {
   images: string[];
+  speed?: number;
+  pauseOnHover?: boolean;
 }
 
-const GAP = 32; 
-
-const Card = forwardRef<HTMLDivElement, { src: string; isFirst: boolean }>(({ src, isFirst }, ref) => {
-  const elementRef = isFirst ? ref : null;
-  
-
-  return (
-    <div
-      ref={elementRef as React.RefObject<HTMLDivElement>}
-      className="group relative flex-shrink-0 overflow-hidden rounded-xl shadow-xl 
-                 w-full 
-                 sm:w-[calc((100%-4rem)/3)]"
-      style={{ 
-        height: '360px' 
-      }} 
-    >
-      {/* Image (Using a placeholder since Next.js Image is not supported here) */}
-      <img
-        src={src || `https://placehold.co/600x360/0a9396/ffffff?text=Project+Screen`}
-        alt={`Project image ${src}`}
-        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105"
-        onError={(e) => {
-          // Fallback in case of broken image links
-          e.currentTarget.src = 'https://placehold.co/600x360/0a9396/ffffff?text=Image+Not+Found';
-        }}
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-    </div>
-  );
-});
-
-Card.displayName = "Card";
-
-const ClickableCarousel: React.FC<ClickableCarouselProps> = ({ images }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+const ClickableCarousel: React.FC<ClickableCarouselProps> = ({
+  images,
+  speed = 45,
+  pauseOnHover = true,
+}) => {
   const [cardWidth, setCardWidth] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
-  const totalCards = images.length;
 
-  // We are sliding one card at a time, so the max index is simply the last card.
-  const maxIndex = Math.max(0, totalCards - 1);
+  const duplicatedImages = [...images, ...images];
+  const loopDistance = images.length * (cardWidth + GAP);
 
-  // Measure card width dynamically using ResizeObserver
   useEffect(() => {
     const updateWidth = () => {
       if (cardRef.current) {
-        // Get the actual computed width of the first card element
-        setCardWidth(cardRef.current.offsetWidth);
+        setCardWidth(cardRef.current.getBoundingClientRect().width);
       }
     };
-    updateWidth();
 
+    updateWidth();
     const observer = new ResizeObserver(updateWidth);
-    if (cardRef.current) {
-      observer.observe(cardRef.current);
-    }
+    if (cardRef.current) observer.observe(cardRef.current);
+    window.addEventListener("resize", updateWidth);
 
     return () => {
-      if (cardRef.current) {
-        observer.unobserve(cardRef.current);
-      }
+      observer.disconnect();
+      window.removeEventListener("resize", updateWidth);
     };
   }, []);
 
-  const goToNext = () => {
-    setCurrentIndex((i) => Math.min(i + 1, maxIndex));
-  };
-  const goToPrev = () => {
-    setCurrentIndex((i) => Math.max(i - 1, 0));
-  };
-
-  const translateX = cardWidth > 0 ? -currentIndex * (cardWidth + GAP) : 0;
-
   return (
-    <section className="w-full py-12 md:py-20 -mt-165 font-inter">
+    <section className="w-full pt-20 pb-32 md:pt-54 md:pb-40 font-inter overflow-hidden">
       <div className="relative w-full max-w-9xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-10 text-center">Get your Premium Templates</h2>
-        <div className="overflow-hidden rounded-xl shadow-2xl">
+        <h2 className="text-3xl font-bold mt-35 text-gray-800 dark:text-white mb-12 text-center">
+          Get your Premium Templates
+        </h2>
+
+        <div
+          className="overflow-hidden"
+          onMouseEnter={() => pauseOnHover && setIsHovered(true)}
+          onMouseLeave={() => pauseOnHover && setIsHovered(false)}
+        >
           <motion.div
             className="flex gap-8"
-            style={{ x: translateX }}
-            animate={{ x: translateX }}
-            transition={{ type: "spring", stiffness: 200, damping: 25 }}
+            animate={{ x: isHovered ? 0 : -loopDistance }}
+            transition={{
+              x: {
+                duration: loopDistance / speed,
+                ease: "linear",
+                repeat: Infinity,
+                repeatType: "loop",
+              },
+            }}
           >
-            {images.map((src, idx) => (
-              <Card 
-                key={`${src}-${idx}`} 
-                src={src} 
-                ref={idx === 0 ? cardRef : null}
-                isFirst={idx === 0}
-              />
+            {duplicatedImages.map((src, i) => (
+              <div
+                key={`${src}-${i}`}
+                ref={i === 0 ? cardRef : null}
+                className="group relative flex-shrink-0 w-full sm:w-[calc((100%-4rem)/3)] overflow-hidden rounded-2xl border border-white/20 bg-white/80 dark:bg-white/10 backdrop-blur-sm shadow-2xl"
+                style={{ height: "360px" }}
+              >
+                {/* Top-Left Dot/Reflection */}
+                <div className="absolute top-0.5 left-2 w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 z-10 opacity-70"></div>
+                {/* Top-Right Dot/Reflection */}
+                <div className="absolute top-0.5 right-2 w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 z-10 opacity-70"></div>
+
+                {/* Bottom-Left Dot/Reflection */}
+                <div className="absolute bottom-0.5 left-2 w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 z-10 opacity-70"></div>
+
+                {/* Bottom-Right Dot/Reflection */}
+                <div className="absolute bottom-0.5 right-2 w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-600 z-10 opacity-70"></div>
+
+                <div className="absolute inset-4 rounded-lg overflow-hidden shadow-lg z-20">
+                  <img
+                    src={src}
+                    alt={`Project ${i % images.length + 1}`}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+              </div>
             ))}
           </motion.div>
         </div>
-
-        {/* Navigation Arrows */}
-        <div className="flex justify-center mt-6 space-x-4">
-          <button
-            onClick={goToPrev}
-            disabled={currentIndex === 0}
-            className="p-3 rounded-full bg-white shadow-lg text-indigo-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-indigo-50 hover:shadow-xl transition-all duration-300"
-            aria-label="Previous"
-          >
-            <ArrowLeft />
-          </button>
-          <button
-            onClick={goToNext}
-            disabled={currentIndex === maxIndex}
-            className="p-3 rounded-full bg-white shadow-lg text-indigo-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-indigo-50 hover:shadow-xl transition-all duration-300"
-            aria-label="Next"
-          >
-            <ArrowRight />
-          </button>
-        </div>
-        
-        {/* Pagination Dots (Optional, but good for UX) */}
-        <div className="flex justify-center space-x-2 mt-4">
-            {images.map((_, idx) => (
-                <button
-                    key={idx}
-                    onClick={() => setCurrentIndex(idx)}
-                    className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                        idx === currentIndex 
-                            ? 'bg-indigo-600' 
-                            : 'bg-gray-300 hover:bg-gray-400'
-                    }`}
-                    aria-label={`Go to slide ${idx + 1}`}
-                />
-            ))}
-        </div>
-
       </div>
     </section>
   );
 };
-
 
 export { ClickableCarousel };

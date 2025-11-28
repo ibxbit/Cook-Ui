@@ -75,7 +75,7 @@ function Header() {
 
   return (
     <header className="sticky z-50 top-0 px-4 pt-5">
-      <div className="z-50 w-full max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between backdrop-blur-3xl bg-white/1 border border-white/10 rounded-2xl">
+      <div className="z-50 w-full max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between backdrop-blur-3xl bg-white/1 border border-white/10 shadow-xl rounded-2xl">
         {/* Left */}
         <div
           className="flex items-center space-x-1 z-10 cursor-pointer transition-all duration-200 hover:opacity-90"
@@ -88,14 +88,14 @@ function Header() {
         </div>
 
         {/* Center */}
-        <nav className="hidden lg:flex items-center space-x-8 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <nav className="hidden lg:flex items-center space-x-8 absolute left-1/2 top-1/2 transform -translate-x-60 -translate-y-1/2">
           {navItems.map((item) => {
             if (item.href) {
               return (
                 <Link
                   key={item.id}
                   href={item.href}
-                  className="text-gray-900 dark:text-white hover:text-white transition-all duration-300 ease-out text-sm font-medium bg-transparent border-none cursor-pointer relative group"
+                  className="text-gray-900 dark:text-white hover:text-gray-600 transition-all duration-300 ease-out text-sm font-medium bg-transparent border-none cursor-pointer relative group"
                 >
                   {item.label}
                   <span className="absolute inset-x-0 -bottom-1 h-px bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>
@@ -106,7 +106,7 @@ function Header() {
               <button
                 key={item.id}
                 onClick={(e) => handleSmoothScroll(e, item.id)}
-                className="text-gray-900 dark:text-white hover:text-white transition-all duration-300 ease-out text-sm font-medium bg-transparent border-none cursor-pointer relative group"
+                className="text-gray-900 dark:text-white hover:text-gray-500 transition-all duration-300 ease-out text-sm font-medium bg-transparent border-none cursor-pointer relative group"
               >
                 {item.label}
                 <span className="absolute inset-x-0 -bottom-1 h-px bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"></span>

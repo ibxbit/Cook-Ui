@@ -3,7 +3,7 @@
 import React from 'react';
 
 const RECT_CONFIG = {
-  horizontalTops: ['2.5%', '33%'],
+  horizontalTops: ['-0.1%', '36%'],
   verticalLefts: ['15%', '88%'],
   strokeColor: 'currentColor',
   strokeWidth: 1,

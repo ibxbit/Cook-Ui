@@ -10,7 +10,7 @@ export default function Hero() {
 
         {/* Main Headline */}
         <FadeInWrapper delay={200}>
-          <h1 className="mb-4 sm:mb-4 text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight sm:leading-snug text-center px-2">
+          <h1 className="mb-4 sm:mb-4 text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight sm:leading-snug text-center px-2 mt-150">
             <span className="block bg-gradient-to-r from-black to-gray-400 dark:from-gray-200 to-black bg-clip-text text-transparent transition-all duration-300">
               npx and Done
             </span>

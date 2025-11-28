@@ -67,7 +67,7 @@ export default function OrganizationHero() {
         animationNum={1}
         timelineRef={heroRef}
         customVariants={revealVariants}
-        className="relative z-10 mx-auto max-w-5xl space-y-4 px-4 py-32 -mt-10 text-center text-neutral-800 lg:px-0"
+        className="relative z-10 mx-auto max-w-5xl space-y-4 px-4 py-15 text-center text-neutral-800 lg:px-0"
       >
         <TimelineContent
           animationNum={2}
@@ -75,7 +75,7 @@ export default function OrganizationHero() {
           customVariants={revealVariants}
           className="mx-auto mb-4 flex w-fit items-center gap-2 rounded-md bg-black px-1.5 py-1 text-xs text-white sm:text-sm"
         >
-          <span className="rounded-sm bg-blue-500 px-1">NEW</span>
+          <span className="rounded-sm bg-blue-500 px-1 ">NEW</span>
           Make your event hand-picked with Guest Genius
         </TimelineContent>
 
@@ -84,7 +84,7 @@ export default function OrganizationHero() {
           animationNum={3}
           timelineRef={heroRef}
           customVariants={scaleVariants}
-          className="mb-6 capitalize text-4xl font-semibold text-gray-900 dark:text-white sm:text-5xl 2xl:text-6xl"
+          className="mb-6 capitalize text-4xl font-stalinist text-gray-900 dark:text-white sm:text-5xl 2xl:text-6xl"
         >
           Launch projects instantly
           {!isMobile && <br />}
@@ -104,7 +104,7 @@ export default function OrganizationHero() {
           </span>
         </TimelineContent>
 
-        <TimelineContent
+        {/* <TimelineContent
           as="p"
           animationNum={5}
           timelineRef={heroRef}
@@ -114,7 +114,7 @@ export default function OrganizationHero() {
           Move beyond primitives. Our curated UI library provides not just components, but full,
           beautiful, and responsive website templates built on modern design principles. It's all
           free, open-source, and crafted to accelerate your development instantly.
-        </TimelineContent>
+        </TimelineContent> */}
 
         <TimelineContent
           as="div"
@@ -123,7 +123,7 @@ export default function OrganizationHero() {
           customVariants={scaleVariants}
           className="mx-auto mt-5 flex w-fit gap-2"
         >
-          <PremiumButton />
+          {/* <PremiumButton /> */}
         </TimelineContent>
       </TimelineContent>
       <div>
