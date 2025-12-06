@@ -43,7 +43,7 @@ export default function CommandBlock() {
                   $
                 </span>
                 <span className="text-green-400 font-mono text-sm sm:text-base md:text-lg font-medium tracking-wide truncate sm:break-all">
-                  npx create-cook-ui-[Id]
+                  pnpm create-cook-ui-[Id]
                 </span>
               </div>
 

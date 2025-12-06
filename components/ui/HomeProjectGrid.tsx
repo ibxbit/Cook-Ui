@@ -65,7 +65,7 @@ const GridOverlay: React.FC = () => {
       {verticalLefts.map((left, i) => (
         <svg
           key={`v-line-${i}`}
-          className="absolute -top-12 h-145"
+          className="absolute -top-22 h-165"
           style={{ left }}
           width="1"
           height="100%"

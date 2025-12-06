@@ -77,15 +77,15 @@ function Header() {
     <header className="sticky z-50 top-0 px-4 pt-5">
       <div className="z-50 w-full max-w-5xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between backdrop-blur-3xl bg-white/1 border border-white/10 shadow-xl rounded-2xl">
         {/* Left */}
-        <div
+        <a
+          href="/"
           className="flex items-center space-x-1 z-10 cursor-pointer transition-all duration-200 hover:opacity-90"
-          onClick={handleScrollToTop}
         >
           <GalleryHorizontalEnd className="h-6 w-6 text-black dark:text-white -mt-[2px]" />
           <span className="text-lg sm:text-xl ml-1 font-semibold text-black dark:text-white">
             COOK-UI
           </span>
-        </div>
+        </a>
 
         {/* Center */}
         <nav className="hidden lg:flex items-center space-x-8 absolute left-1/2 top-1/2 transform -translate-x-60 -translate-y-1/2">
