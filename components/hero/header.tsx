@@ -19,7 +19,7 @@ import { ThemeToggleButton } from "../mode-toggle";
 
 function Header() {
   const navItems = [
-    { id: "Templates", label: "Templates", href: "/temp" },
+    { id: "Templates", label: "Templates", href: "#link" },
     { id: "Components", label: "Components" },
     { id: "how-it-works", label: "How it Works" },
   ];
