@@ -4,6 +4,7 @@
 // import { LinesPatternCardDemo } from "@/components/hero/feature/belowDemo";
 // import { DemoOne } from "@/components/hero/feature/demo";
 import OrganizationHero from "@/components/hero/hero";
+import { Demo } from "@/components/ui/sparkelsDemo";
 // import PricingSection4 from "@/components/pricing/pricing";
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
     <div>
       <main>
         <OrganizationHero />
+        <Demo/>
         {/* <HeroSection /> */}
         {/* <DemoOne /> */}
         {/* <LinesPatternCardDemo /> */}

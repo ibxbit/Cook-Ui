@@ -41,7 +41,7 @@ const ClickableCarousel: React.FC<ClickableCarouselProps> = ({
   }, []);
 
   return (
-    <section className="w-full pt-20 pb-32 md:pt-54 md:pb-40 font-inter overflow-hidden">
+    <section className="w-full pt-20 pb-32 md:pt-34 md:pb-40 font-inter overflow-hidden">
       <div className="relative w-full max-w-9xl mx-auto px-4">
         <h2 className="text-3xl font-bold mt-35 text-gray-800 dark:text-white mb-12 text-center">
           Get your Premium Templates

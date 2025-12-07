@@ -129,9 +129,9 @@ export default function OrganizationHero() {
       <div>
         <ClickableCarouselDemo />
       </div>
-      <div className="-mt-150">
+      {/* <div className="-mt-150">
         <HeroSection />
-      </div>
+      </div> */}
     </section>
   );
 }
